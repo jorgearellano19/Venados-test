@@ -6,7 +6,11 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-
+import HomeIcon from '@material-ui/icons/Home';
+import AccessibilityIcon from '@material-ui/icons/Accessibility';
+import FormatListNumberedIcon from '@material-ui/icons/FormatListNumbered';
+import SidebarHeader from './_SidebarHeader';
+import {useHistory} from "react-router-dom";
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -35,6 +39,7 @@ const useStyles = makeStyles((theme: Theme) =>
         toolbar: theme.mixins.toolbar,
         drawerPaper: {
             width: drawerWidth,
+            backgroundColor: theme.palette.background.default,
         },
         content: {
             flexGrow: 1,
@@ -48,16 +53,36 @@ type SidebarProps = {
     changeMobileSidebar: any;
 };
 
+type RouteSidebarProps = {
+    name: string;
+    link: string;
+    icon: any
+}
+
+
+
+
 function Sidebar(props: SidebarProps) {
     const classes = useStyles();
+    const history = useHistory();
+    const optionsBar: Array<RouteSidebarProps> = [
+        {name: 'Home', link: '/', icon: (<HomeIcon/>)},
+        {name: 'Jugadores', link: '/players', icon: (<AccessibilityIcon/>)},
+        {name: 'Estadisticas', link: '/stats', icon: (<FormatListNumberedIcon/>)},
+    ];
+
+    const handleClick = (link: string) => {
+        history.push(link)
+    };
     const drawer = (
         <div>
-            <div className={classes.toolbar} />
+            <SidebarHeader />
             <Divider />
             <List>
-                {['Home', 'Estadisticas', 'Jugadores'].map((text, index) => (
-                    <ListItem button key={text}>
-                        <ListItemText primary={text} />
+                {optionsBar.map((link, index) => (
+                    <ListItem button key={link.name} onClick={e => handleClick(link.link)}>
+                        {link.icon}
+                        <ListItemText primary={link.name} />
                     </ListItem>
                 ))}
             </List>
