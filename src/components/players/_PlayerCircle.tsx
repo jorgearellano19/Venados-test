@@ -5,10 +5,11 @@ import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
+        root: {
+            cursor: 'pointer'
+        },
         imageContainer: {
-            borderRadius: '50%',
-            height: 100,
-            width: 100
+            textAlign: 'center',
         },
         text: {
             textAlign: 'center',
@@ -19,21 +20,24 @@ const useStyles = makeStyles((theme: Theme) =>
             height: 100,
             width: 100,
             borderRadius: '50%',
-
         }
     })
 );
 
+type PlayerCircleProps = {
+    player: PlayerType;
+    onPlayerClick: any;
+} 
 
-function PlayerCircle(player: PlayerType) {
+function PlayerCircle(props: PlayerCircleProps) {
     const classes = useStyles();
     return(
-        <Grid item container xs={4} sm={3} md={2} lg={1}  direction="column">
+        <Grid className={classes.root} onClick={props.onPlayerClick} item container sm={4} md={3} lg={2}  direction="column" justify="center">
             <div className={classes.imageContainer}>
-                <img className={classes.image} src={player.image} alt="Player info"></img>
+                <img className={classes.image} src={props.player.image} alt="Player info"></img>
             </div>
-            <Typography className={classes.text} variant={'h6'} color={'secondary'}>{`${player.position}`}</Typography>
-            <Typography className={classes.text} variant={'h6'} color={'secondary'}>{`${player.name} ${player.first_surname}`}</Typography>
+            <Typography className={classes.text} variant={'h6'} color={'secondary'}>{`${props.player.position}`}</Typography>
+            <Typography className={classes.text} variant={'h6'} color={'secondary'}>{`${props.player.name} ${props.player.first_surname}`}</Typography>
         </Grid>
     )
 }
