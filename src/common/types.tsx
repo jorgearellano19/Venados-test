@@ -36,3 +36,30 @@ export type StatsType = {
     points: number;
     efect: any;
 } 
+
+export type PlayerType = {
+    name: string;
+    first_surname: string;
+    second_surname: string;
+    birthdate: string;
+    birth_place: string;
+    weight: number;
+    height: number;
+    position: string;
+    number: number;
+    position_short: string;
+    last_team: string;
+    image: string;
+}
+
+export type PlayerResponseType = {
+    team: TeamResponseType;
+}
+
+export type TeamResponseType = {
+    forwards: Array<PlayerType>;
+    centers: Array<PlayerType>;
+    defenses: Array<PlayerType>;
+    goalkeepers: Array<PlayerType>;
+
+}
