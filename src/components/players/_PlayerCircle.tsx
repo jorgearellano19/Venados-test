@@ -26,13 +26,19 @@ const useStyles = makeStyles((theme: Theme) =>
 
 type PlayerCircleProps = {
     player: PlayerType;
-    onPlayerClick: any;
+    onPlayerClick?: any;
 } 
 
 function PlayerCircle(props: PlayerCircleProps) {
     const classes = useStyles();
+
+    const handleClick = () => {
+        if(props.onPlayerClick) {
+            props.onPlayerClick();
+        }
+    };
     return(
-        <Grid className={classes.root} onClick={props.onPlayerClick} item container sm={4} md={3} lg={2}  direction="column" justify="center">
+        <Grid className={classes.root} onClick={handleClick} item container xs={4} sm={4} md={3} lg={2}  direction="column" justify="center">
             <div className={classes.imageContainer}>
                 <img className={classes.image} src={props.player.image} alt="Player info"></img>
             </div>
