@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       display: 'flex',
+      minWidth: 360
     },
     appBar: {
       [theme.breakpoints.up('sm')]: {
