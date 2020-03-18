@@ -9,6 +9,10 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Sidebar from './components/Sidebar/Sidebar';
 import appTheme from './App.theme';
+import { Switch, Route } from 'react-router-dom';
+import Home from './components/home/Home';
+import Stats from './components/stats/Stats';
+import Players from './components/players/Players';
 
 const drawerWidth = 240;
 
@@ -32,18 +36,15 @@ const useStyles = makeStyles((theme: Theme) =>
     toolbar: theme.mixins.toolbar,
     content: {
       flexGrow: 1,
+      [theme.breakpoints.up('sm')]: {
+        width: `calc(100% - ${drawerWidth}px)`,
+        marginLeft: drawerWidth,
+      },
       padding: theme.spacing(3),
+      backgroundColor: theme.palette.background.paper,
     },
   }),
 );
-
-interface ResponsiveDrawerProps {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
-  container?: Element;
-}
 
 export default function App() {
   const classes = useStyles();
@@ -75,7 +76,12 @@ export default function App() {
       </AppBar>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        <div>PAGES</div>
+        <Switch>
+          <Route path="/" exact component={Home} ></Route>
+          <Route path="/players" exact component={Players} ></Route>
+          <Route path="/stats" exact component={Stats} ></Route>
+
+        </Switch>
       </main>
     </div>
     </ThemeProvider>
