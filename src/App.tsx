@@ -4,9 +4,11 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from "@material-ui/icons/Menu";
 import Toolbar from '@material-ui/core/Toolbar';
+import { ThemeProvider } from "@material-ui/core";
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Sidebar from './components/Sidebar/Sidebar';
+import appTheme from './App.theme';
 
 const drawerWidth = 240;
 
@@ -51,6 +53,7 @@ export default function App() {
     setMobileOpen(!mobileOpen);
   };
   return (
+    <ThemeProvider theme={appTheme}>
     <div className={classes.root}>
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
@@ -75,5 +78,6 @@ export default function App() {
         <div>PAGES</div>
       </main>
     </div>
+    </ThemeProvider>
   );
 }
