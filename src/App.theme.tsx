@@ -5,7 +5,7 @@ const appTheme = createMuiTheme({
     primary: { main: '#fff' },
     secondary: { main: '#000' },
     warning: { main: '#f0b000' },
-    background: { default: '#6AA761', paper: '#ffffff'},
+    background: { default: '#fff', paper: '#6AA761',  },
     text: { primary: '#757373', secondary: '#858585' },
     common: {white: '#fff'}
   },
