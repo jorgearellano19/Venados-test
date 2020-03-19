@@ -19,7 +19,6 @@ const mapGames = (games: Array<GameType>):Map<string, GameCalendar> => {
         const date = moment(game.datetime);
         const month = date.format("MMMM");
         const weekDay = date.day();
-        console.log(weekDay);
         const newObject: GameCalendar = {
             ...game,
             day: date.get('date'),
@@ -47,7 +46,6 @@ export default function reducer(state = initialState, action: ActionTypes): Stat
                 isLoading: true
             }
         case GAMES_SUCCESS:
-            console.log(action);
             return {
                 ...state,
                 isLoading: false,

@@ -54,7 +54,6 @@ export function getData(type: string): ThunkAction<Promise<void>, {}, {}, AnyAct
         dispatch(requestData);
         try {
             const response = await request.get(`${type}`);
-            console.log(response);
             switch (type) {
                 case 'players':
                     dispatch(playersSuccess(response.data));
@@ -63,7 +62,6 @@ export function getData(type: string): ThunkAction<Promise<void>, {}, {}, AnyAct
                     dispatch(statsSuccess(response.data));
                     break;
                 case 'games':
-                    console.log(response);
                     dispatch(gamesSuccess(response.data));
                     break;
             }
