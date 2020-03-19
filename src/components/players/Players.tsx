@@ -7,6 +7,7 @@ import PlayerCircle from './_PlayerCircle';
 import PlayerDetail from './_PlayerDetail';
 import { State } from '../../common/interfaces';
 import { getData } from '../../store/actions/actions';
+import LoadingPage from "../LoadingPage/LoadingPage";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -36,7 +37,11 @@ function Players() {
     const handleClose = () => {
         setOpenView(false);
       };
+    if(content.isLoading) {
+        return(<LoadingPage/>);
+    }  
     return(
+        
         <Grid container>
             {content.players.map((player: PlayerType, index: number) => (
                 <PlayerCircle key={index} player={player} onPlayerClick={(e: any) => handlePlayerClick(player)}/>

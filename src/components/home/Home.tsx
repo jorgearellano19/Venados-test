@@ -8,6 +8,7 @@ import 'moment/locale/es';
 import { State } from "../../common/interfaces";
 import Calendar from './_Calendar';
 import { getData, GamesFilters, filterGames} from '../../store/actions/actions';
+import LoadingPage from '../LoadingPage/LoadingPage';
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -43,6 +44,10 @@ function Home() {
     const handleFilter = (type: string) => {
         dispatch(filterGames(content.games, type));
     }
+
+    if(content.isLoading) {
+        return(<LoadingPage/>);
+    } 
 
     return (
         <Grid container direction='column' justify="center" alignContent="center">

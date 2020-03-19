@@ -5,6 +5,7 @@ import { StatsType } from '../../common/types';
 import GeneralTable from './_GeneralTable';
 import { State } from '../../common/interfaces';
 import { getData } from '../../store/actions/actions';
+import LoadingPage from '../LoadingPage/LoadingPage';
 
 function Stats() {
     const content = (useSelector(state => state) as State);
@@ -13,6 +14,10 @@ function Stats() {
     useEffect(() => {
         dispatch(getData('statistics'))
     }, [])
+
+    if(content.isLoading) {
+        return(<LoadingPage/>);
+    } 
     return(
         <Grid container >
             <GeneralTable teams={content.stats}/>
