@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { Grid, Typography, Modal } from '@material-ui/core';
+import { Grid, Modal } from '@material-ui/core';
+import { useSelector, useDispatch } from "react-redux";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import players from "../../services/players";
 import { PlayerResponseType, PlayerType } from '../../common/types';
 import PlayerCircle from './_PlayerCircle';
 import PlayerDetail from './_PlayerDetail';
+import { State } from '../../common/interfaces';
+import { getData } from '../../store/actions/actions';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -19,11 +22,12 @@ const useStyles = makeStyles((theme: Theme) =>
 const playersModified = ((players as any) as PlayerResponseType);
 function Players() {
     const classes = useStyles();
-    const [players, setPlayers] = useState(new Array<PlayerType>());
+    const content = (useSelector(state => state) as State);
+    const dispatch = useDispatch();
     const [playerSelected, setPlayerSelected] = useState(({} as PlayerType));
     const [openView, setOpenView] = useState(false);
     useEffect(() => {
-        setPlayers([...playersModified.team.goalkeepers, ...playersModified.team.defenses, ...playersModified.team.centers, ...playersModified.team.forwards]);
+        dispatch(getData('players'));
     }, []);
 
     const handlePlayerClick = (player: PlayerType) => {
@@ -36,8 +40,8 @@ function Players() {
       };
     return(
         <Grid container>
-            {players.map((player: PlayerType, index: number) => (
-                <PlayerCircle player={player} onPlayerClick={(e: any) => handlePlayerClick(player)}/>
+            {content.players.map((player: PlayerType, index: number) => (
+                <PlayerCircle key={index} player={player} onPlayerClick={(e: any) => handlePlayerClick(player)}/>
             ))}
 
         <Modal
