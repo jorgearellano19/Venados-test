@@ -58,7 +58,9 @@ interface StatsSuccessAction {
 interface GamesFilterAction {
     type: typeof FILTER_GAMES;
     filter: string;
+    filteredItems: Map<string, GameCalendar>;
 }
+
 
 export interface State {
     isLoading: boolean;
@@ -66,7 +68,10 @@ export interface State {
     games: Map<string, GameCalendar>;
     players: Array<PlayerType>;
     stats: Array<StatsType>;
+    gameFilter: string;
+    filteredGames?: Map<string, GameCalendar>;
 }
+
 
 export type ActionTypes = StatsSuccessAction | PlayersSuccessAction | GamesSuccessAction | ErrorData | RequestData | GamesFilterAction;
 

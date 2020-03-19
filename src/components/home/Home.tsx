@@ -3,14 +3,13 @@ import { Grid, Typography } from '@material-ui/core'
 import { useSelector, useDispatch } from "react-redux";
 import logo from "../../assets/VENlogo.png";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
-import  moment from 'moment';
+import moment from 'moment';
 import 'moment/locale/es';
-import games from "../../services/games";
-import {GameType, GameCalendar} from "../../common/types";
 import { State } from "../../common/interfaces";
-import { weekDays } from "../../common/dictionaries";
 import Calendar from './_Calendar';
-import { getData } from '../../store/actions/actions';
+import { getData, GamesFilters, filterGames} from '../../store/actions/actions';
+
+
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
@@ -31,16 +30,19 @@ const useStyles = makeStyles((theme: Theme) =>
     })
 );
 
-const gamesModified = ((games as any) as Array<GameType>);
-moment.locale('es');
+moment.locale('es')
+
 function Home() {
     const content = (useSelector(state => state) as State);
     const dispatch = useDispatch();
     const classes = useStyles();
-    const [games, setGames] = React.useState(new Map());
     useEffect(() => {
         dispatch(getData('games'));
     }, []);
+
+    const handleFilter = (type: string) => {
+        dispatch(filterGames(content.games, type));
+    }
 
     return (
         <Grid container direction='column' justify="center" alignContent="center">
@@ -48,14 +50,17 @@ function Home() {
                 <img className={classes.logo} src={logo} alt="logo"></img>
             </Grid>
             <Grid item container xs={12}>
-                <Grid item xs={6} className={classes.filterButtons}>
+                <Grid onClick={e => handleFilter(GamesFilters.SHOW_ALL)} item xs={4} className={classes.filterButtons}>
+                    <Typography variant={'h6'}>Mostrar Todos</Typography>
+                </Grid>
+                <Grid onClick={e => handleFilter(GamesFilters.SHOW_COPA_MX)} item xs={4} className={classes.filterButtons}>
                     <Typography variant={'h6'}>Copa MX</Typography>
                 </Grid>
-                <Grid item xs={6} className={classes.filterButtons}>
+                <Grid onClick={e => handleFilter(GamesFilters.SHOW_ASCENSO_MX)} item xs={4} className={classes.filterButtons}>
                     <Typography variant={'h6'}>Ascenso MX</Typography>
                 </Grid>
             </Grid>
-            <Calendar games={content.games}></Calendar>
+            <Calendar games={content.filteredGames ? content.filteredGames : content.games}></Calendar>
 
         </Grid>
     )

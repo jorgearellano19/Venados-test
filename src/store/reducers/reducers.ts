@@ -2,14 +2,42 @@ import { State, ActionTypes, REQUESTING_DATA, ERROR, GAMES_SUCCESS, STATS_SUCCES
 import { GameType, StatsType, PlayerType , GameCalendar, TeamResponseType} from "../../common/types";
 import { weekDays } from "../../common/dictionaries";
 import moment from 'moment';
+import { GamesFilters } from "../actions/actions";
 
 const initialState: State = {
     isLoading: false,
     games: new Map<string, GameCalendar>(),
     players: [],
     error: false,
-    stats: []
+    stats: [],
+    gameFilter: GamesFilters.SHOW_ALL
 };
+
+const mapGames = (games: Array<GameType>):Map<string, GameCalendar> => {
+    const map = new Map();
+   games.forEach((game: GameType) => {
+        const date = moment(game.datetime);
+        const month = date.format("MMMM");
+        const weekDay = date.day();
+        console.log(weekDay);
+        const newObject: GameCalendar = {
+            ...game,
+            day: date.get('date'),
+            weekDay: (weekDays as any)[weekDay]
+        }
+        const collection = map.get(month);
+        if (!collection) {
+            map.set(month, [newObject]);
+        } else {
+            collection.push(newObject);
+        }
+    });
+    return map;
+}
+
+const concatPlayers = (players: TeamResponseType): Array<PlayerType> => {
+    return [...players.goalkeepers, ...players.defenses, ...players.centers, ...players.forwards];
+}
 
 export default function reducer(state = initialState, action: ActionTypes): State {
     switch (action.type) {
@@ -43,33 +71,14 @@ export default function reducer(state = initialState, action: ActionTypes): Stat
                 isLoading: false,
                 error: true
             }
+            case FILTER_GAMES: 
+            return {
+                ...state,
+                gameFilter: action.filter,
+                filteredGames: action.filteredItems
+            };
         default:
             return state;
     }
 }
 
-const mapGames = (games: Array<GameType>):Map<string, GameCalendar> => {
-    const map = new Map();
-   games.forEach((game: GameType) => {
-        const date = moment(game.datetime);
-        const month = date.format("MMMM");
-        const weekDay = date.day();
-        console.log(weekDay);
-        const newObject: GameCalendar = {
-            ...game,
-            day: date.get('date'),
-            weekDay: (weekDays as any)[weekDay]
-        }
-        const collection = map.get(month);
-        if (!collection) {
-            map.set(month, [newObject]);
-        } else {
-            collection.push(newObject);
-        }
-    });
-    return map;
-}
-
-const concatPlayers = (players: TeamResponseType): Array<PlayerType> => {
-    return [...players.goalkeepers, ...players.defenses, ...players.centers, ...players.forwards];
-}

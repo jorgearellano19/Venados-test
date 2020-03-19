@@ -2,6 +2,7 @@ import { ActionTypes, REQUESTING_DATA, ERROR, GAMES_SUCCESS, PLAYERS_SUCCESS, ST
 import { ThunkAction, ThunkDispatch } from 'redux-thunk'
 import { AnyAction } from 'redux';
 import request from "../../services/request";
+import { GameType, GameCalendar } from "../../common/types";
 
 export const requestData: any = () => ({
     type: REQUESTING_DATA
@@ -17,6 +18,7 @@ export function error(err: string): ActionTypes {
 export const GamesFilters = {
     SHOW_COPA_MX: 'SHOW_COPA_MX',
     SHOW_ASCENSO_MX: 'SHOW_ASCENSO_MX',
+    SHOW_ALL: 'SHOW_ALL'
 }
 
 export function setGameFilter(filter: string) {
@@ -71,3 +73,32 @@ export function getData(type: string): ThunkAction<Promise<void>, {}, {}, AnyAct
     }
 };
 
+export function filterGames(games: Map<string, GameCalendar>, filter: string): ActionTypes {
+    let newMap = new Map();
+    switch(filter) {
+        case GamesFilters.SHOW_ASCENSO_MX:
+            newMap = filterMap(games, "Ascenso MX");
+            break;
+        case GamesFilters.SHOW_COPA_MX:
+            newMap = filterMap(games, "Copa MX");
+            break;
+        default:
+            newMap =  games;
+            break;
+    }
+    return {
+        type: FILTER_GAMES,
+        filter: filter,
+        filteredItems: newMap
+    };
+}
+
+function filterMap(map: Map<string, GameCalendar>, cupFiltered: string): Map<string, GameCalendar> {
+    const result = new Map();
+    map.forEach((value: GameCalendar, key: string) => {
+        const matchesInMonth = (value as any as Array<GameCalendar>).filter(game => game.league === cupFiltered);
+        if(matchesInMonth.length > 0)
+            result.set(key, matchesInMonth);
+    });
+    return result;
+  }

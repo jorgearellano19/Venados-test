@@ -52,7 +52,6 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function App() {
   const classes = useStyles();
   const [mobileOpen, setMobileOpen] = React.useState(false);
-
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
