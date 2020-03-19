@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Grid, Modal } from '@material-ui/core';
 import { useSelector, useDispatch } from "react-redux";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-import players from "../../services/players";
-import { PlayerResponseType, PlayerType } from '../../common/types';
+import {  PlayerType } from '../../common/types';
 import PlayerCircle from './_PlayerCircle';
 import PlayerDetail from './_PlayerDetail';
 import { State } from '../../common/interfaces';
@@ -19,7 +18,6 @@ const useStyles = makeStyles((theme: Theme) =>
     })
 );
 
-const playersModified = ((players as any) as PlayerResponseType);
 function Players() {
     const classes = useStyles();
     const content = (useSelector(state => state) as State);
