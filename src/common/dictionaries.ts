@@ -5,7 +5,7 @@ const weekDays = {
     4: 'JUE',
     5: 'VIE',
     6: 'SAB',
-    7: 'DOM'
+    0: 'DOM',
 };
 
 export {
