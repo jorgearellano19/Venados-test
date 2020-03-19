@@ -1,4 +1,5 @@
 import React from 'react';
+import { Provider } from 'react-redux';
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import IconButton from '@material-ui/core/IconButton';
@@ -13,6 +14,7 @@ import { Switch, Route } from 'react-router-dom';
 import Home from './components/home/Home';
 import Stats from './components/stats/Stats';
 import Players from './components/players/Players';
+import store from "./store/index";
 
 const drawerWidth = 240;
 
@@ -55,36 +57,38 @@ export default function App() {
     setMobileOpen(!mobileOpen);
   };
   return (
-    <ThemeProvider theme={appTheme}>
-    <div className={classes.root}>
-      <CssBaseline />
-      <AppBar position="fixed" className={classes.appBar}>
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            className={classes.menuButton}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap>
-            Home
+    <Provider store={store}>
+      <ThemeProvider theme={appTheme}>
+        <div className={classes.root}>
+          <CssBaseline />
+          <AppBar position="fixed" className={classes.appBar}>
+            <Toolbar>
+              <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                edge="start"
+                onClick={handleDrawerToggle}
+                className={classes.menuButton}
+              >
+                <MenuIcon />
+              </IconButton>
+              <Typography variant="h6" noWrap>
+                Home
           </Typography>
-        </Toolbar>
-        <Sidebar changeMobileSidebar={handleDrawerToggle} isOpen={mobileOpen}/>
-      </AppBar>
-      <main className={classes.content}>
-        <div className={classes.toolbar} />
-        <Switch>
-          <Route path="/" exact component={Home} ></Route>
-          <Route path="/players" exact component={Players} ></Route>
-          <Route path="/stats" exact component={Stats} ></Route>
+            </Toolbar>
+            <Sidebar changeMobileSidebar={handleDrawerToggle} isOpen={mobileOpen} />
+          </AppBar>
+          <main className={classes.content}>
+            <div className={classes.toolbar} />
+            <Switch>
+              <Route path="/" exact component={Home} ></Route>
+              <Route path="/players" exact component={Players} ></Route>
+              <Route path="/stats" exact component={Stats} ></Route>
 
-        </Switch>
-      </main>
-    </div>
-    </ThemeProvider>
+            </Switch>
+          </main>
+        </div>
+      </ThemeProvider>
+    </Provider>
   );
 }

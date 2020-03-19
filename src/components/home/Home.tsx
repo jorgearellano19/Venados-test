@@ -1,13 +1,16 @@
 import React, { useEffect } from 'react'
 import { Grid, Typography } from '@material-ui/core'
+import { useSelector, useDispatch } from "react-redux";
 import logo from "../../assets/VENlogo.png";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import  moment from 'moment';
 import 'moment/locale/es';
 import games from "../../services/games";
 import {GameType, GameCalendar} from "../../common/types";
+import { State } from "../../common/interfaces";
 import { weekDays } from "../../common/dictionaries";
 import Calendar from './_Calendar';
+import { getData } from '../../store/actions/actions';
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
@@ -31,32 +34,14 @@ const useStyles = makeStyles((theme: Theme) =>
 const gamesModified = ((games as any) as Array<GameType>);
 moment.locale('es');
 function Home() {
+    const content = (useSelector(state => state) as State);
+    const dispatch = useDispatch();
     const classes = useStyles();
     const [games, setGames] = React.useState(new Map());
     useEffect(() => {
-        setGames(formatGames());
+        dispatch(getData('games'));
     }, []);
 
-    const formatGames = () => {
-        const map = new Map();
-       gamesModified.forEach((item) => {
-            const date = moment(item.datetime);
-            const month = date.format("MMMM");
-            const weekDay = date.day();
-            const newObject: GameCalendar = {
-                ...item,
-                day: date.get('date'),
-                weekDay: (weekDays as any)[date.day()]
-            }
-            const collection = map.get(month);
-            if (!collection) {
-                map.set(month, [newObject]);
-            } else {
-                collection.push(newObject);
-            }
-        });
-        return map;
-    };
     return (
         <Grid container direction='column' justify="center" alignContent="center">
             <Grid item xs={12} className={classes.logoContainer}>
@@ -70,7 +55,7 @@ function Home() {
                     <Typography variant={'h6'}>Ascenso MX</Typography>
                 </Grid>
             </Grid>
-            <Calendar games={games}></Calendar>
+            <Calendar games={content.games}></Calendar>
 
         </Grid>
     )
