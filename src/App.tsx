@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Provider } from 'react-redux';
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -10,11 +10,12 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Sidebar from './components/Sidebar/Sidebar';
 import appTheme from './App.theme';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, useLocation } from 'react-router-dom';
 import Home from './components/home/Home';
 import Stats from './components/stats/Stats';
 import Players from './components/players/Players';
 import store from "./store/index";
+import { getByTitle } from '@testing-library/react';
 
 const drawerWidth = 240;
 
@@ -52,9 +53,23 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function App() {
   const classes = useStyles();
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [title, setTitle] = useState('');
+  const location = useLocation();
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
+    console.log(location);
   };
+
+  useEffect(() => {
+    getTitle();
+  }, [location]);
+
+  const getTitle = () => {
+    location.pathname === '/' ? setTitle('HOME') : 
+    location.pathname === '/players' ? setTitle('PLAYERS'):
+    location.pathname === '/stats' ? setTitle('STATS'): setTitle('');
+  };
+
   return (
     <Provider store={store}>
       <ThemeProvider theme={appTheme}>
@@ -71,8 +86,8 @@ export default function App() {
               >
                 <MenuIcon />
               </IconButton>
-              <Typography variant="h6" noWrap>
-                Home
+              <Typography variant={'h2'} noWrap>
+                {title}
           </Typography>
             </Toolbar>
             <Sidebar changeMobileSidebar={handleDrawerToggle} isOpen={mobileOpen} />
