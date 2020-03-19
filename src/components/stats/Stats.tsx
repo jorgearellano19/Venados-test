@@ -1,14 +1,22 @@
-import React from 'react'
-import { Grid, Typography } from '@material-ui/core'
+import React, {useEffect} from 'react'
+import { Grid } from '@material-ui/core'
+import { useSelector, useDispatch } from "react-redux";
 import stats from "../../services/stats";
 import { StatsType } from '../../common/types';
 import GeneralTable from './_GeneralTable';
+import { State } from '../../common/interfaces';
+import { getData } from '../../store/actions/actions';
 
-const statsModified = ((stats as any) as Array<StatsType>);
 function Stats() {
+    const content = (useSelector(state => state) as State);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getData('statistics'))
+    }, [])
     return(
-        <Grid container xs={12}>
-            <GeneralTable teams={statsModified}/>
+        <Grid container >
+            <GeneralTable teams={content.stats}/>
         </Grid>
     )
 } 

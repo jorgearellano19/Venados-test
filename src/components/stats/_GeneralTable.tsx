@@ -14,7 +14,7 @@ function GeneralTable(props: TableProps) {
                 <TableHeader/>
                 <TableBody>
                     {props.teams.map((team: StatsType, index: number) => (
-                        <TeamRow {...team}></TeamRow>
+                        <TeamRow key={index} {...team}></TeamRow>
                     ))}
                 </TableBody>
             </Table>
