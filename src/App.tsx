@@ -15,7 +15,6 @@ import Home from './components/home/Home';
 import Stats from './components/stats/Stats';
 import Players from './components/players/Players';
 import store from "./store/index";
-import { getByTitle } from '@testing-library/react';
 
 const drawerWidth = 240;
 

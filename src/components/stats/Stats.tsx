@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react'
 import { Grid } from '@material-ui/core'
 import { useSelector, useDispatch } from "react-redux";
-import { StatsType } from '../../common/types';
 import GeneralTable from './_GeneralTable';
 import { State } from '../../common/interfaces';
 import { getData } from '../../store/actions/actions';
