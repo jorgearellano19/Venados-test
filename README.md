@@ -16,37 +16,37 @@ The .env file is in the project only for testing purpose.
 
 ### Project Structure.
 
-The project has the following structure:
+The project has the following structure: <br/>
 
-- assets/ Folder for assets in the project.
-- common/ Contains common tools used in all project.
-  -dictionaries.ts Contains dictionaries for data.
-  -interfaces.ts Contains interfaces types used in the project. The difference between this interfaces and the types is that the interfaces are used for the async functions (connection with backend).
-  -types.ts. Contains the types used in the app. type is used in the project instead an interface when it's for describing some function or type that is not used in async functins.
+- assets/ Folder for assets in the project.<br/>
+- common/ Contains common tools used in all project.<br/>
+  - dictionaries.ts Contains dictionaries for data.<br/>
+  - interfaces.ts Contains interfaces types used in the project. The difference between this interfaces and the types is that the interfaces are used for the async functions (connection with backend).<br/>
+  - types.ts. Contains the types used in the app. type is used in the project instead an interface when it's for describing some function or type that is not used in async functins.<br/>
   
--Components / Contains all the components used in the project.
-  -Home: Here's the home component. It's where the games are loaded. Contains three files:
-    -Home.tsx: The principal component.
-    -_Calendar.tsx: The component used for the calendar.
-    -_TeamInfo.tsx: Component used for put the image and the team name in the calendar.
-   -LoadingPage: Here's the Loading page component that is displayed only when the state of the application is in loading.
-   -Players: This folder contains the players' tab.
-    -Players.tsx: Here's the principal grid with all the player's circle info.
-    -_PlayerCircle.tsx: Contains the image, name and position of the player.
-    -_PlayerDetail.tsx: When we click on a player circle, one modal is displayed with the detail info about the player.
-   -stats: Component used for the statistics table.
-    -_GeneraTable: Table used for the stats.
-    -_TableRow: Row designed especially in this table project.
-    -_TableHeader: Header used for this table project.
-    -Stats: Componentm that wraps the table.
-   -Sidebar: Component that contains the sidebar of the app. Contains the behaivour on different windows sizes.
--Services: Contains one request.ts that exports the axios request for the backend.
--Store: For this project I used Redux for state management. This folder contains all the data about redux.
-  -Actions: Folder with all the actions in the project
-  -Reducers: Folder with the reducers in the project.
-  -index.ts: Contains the store creation and exportation.
- -App.tsx - Contains the skeleton on the app. Wraps the sidebar, header and the router. Also is provided by the store and the theme.
- -App.theme.tsx - Contains the theme of the application (Developed with material-ui)
+- Components / Contains all the components used in the project.<br/>
+  - Home: Here's the home component. It's where the games are loaded. Contains three files:<br/>
+    - Home.tsx: The principal component.<br/>
+    - _Calendar.tsx: The component used for the calendar.<br/>
+    - _TeamInfo.tsx: Component used for put the image and the team name in the calendar.<br/>
+   - LoadingPage: Here's the Loading page component that is displayed only when the state of the application is in loading state.<br/>
+   - Players: This folder contains the players' tab.<br/>
+    - Players.tsx: Here's the principal grid with all the player's circle info. <br/>
+    - _PlayerCircle.tsx: Contains the image, name and position of the player.<br/>
+    - _PlayerDetail.tsx: When we click on a player circle, one modal is displayed with the detail info about the player.<br/>
+   - stats: Component used for the statistics table.<br/>
+    - _GeneraTable: Table used for the stats.<br/>
+    - _TableRow: Row designed especially in this table project.<br/>
+    - _TableHeader: Header used for this table project.<br/>
+    - Stats: Componentm that wraps the table.<br/>
+   - Sidebar: Component that contains the sidebar of the app. Contains the behaivour on different windows sizes.<br/>
+- Services: Contains one request.ts that exports the axios request for the backend.<br/>
+- Store: For this project I used Redux for state management. This folder contains all the data about redux.<br/>
+  - Actions: Folder with all the actions in the project<br/>
+  - Reducers: Folder with the reducers in the project.<br/>
+  - index.ts: Contains the store creation and exportation.<br/>
+ - App.tsx - Contains the skeleton on the app. Wraps the sidebar, header and the router. Also is provided by the store and the theme.<br/>
+ - App.theme.tsx - Contains the theme of the application (Developed with material-ui)
  
 ### TOOLS
 Here's the tools that I used for the project:
