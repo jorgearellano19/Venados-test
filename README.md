@@ -1,44 +1,63 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Venados Test.
 
-In the project directory, you can run:
-
+For running the project you can run it with:
 ### `npm start`
 
 Runs the app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+You will also see any lint errors in the console. <br/>
 
-### `npm test`
+The .env file is in the project only for testing purpose. 
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+###IMPORTANT: If you're testing in local, it's important to avoid the cors policy. I recommend this google extension: https://chrome.google.com/webstore/detail/moesif-orign-cors-changer/digfbfaphojjndkpccljibejjbppifbc
 
-### `npm run build`
+### Project Structure.
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+The project has the following structure:
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- assets/ Folder for assets in the project.
+- common/ Contains common tools used in all project.
+  -dictionaries.ts Contains dictionaries for data.
+  -interfaces.ts Contains interfaces types used in the project. The difference between this interfaces and the types is that the interfaces are used for the async functions (connection with backend).
+  -types.ts. Contains the types used in the app. type is used in the project instead an interface when it's for describing some function or type that is not used in async functins.
+  
+-Components / Contains all the components used in the project.
+  -Home: Here's the home component. It's where the games are loaded. Contains three files:
+    -Home.tsx: The principal component.
+    -_Calendar.tsx: The component used for the calendar.
+    -_TeamInfo.tsx: Component used for put the image and the team name in the calendar.
+   -LoadingPage: Here's the Loading page component that is displayed only when the state of the application is in loading.
+   -Players: This folder contains the players' tab.
+    -Players.tsx: Here's the principal grid with all the player's circle info.
+    -_PlayerCircle.tsx: Contains the image, name and position of the player.
+    -_PlayerDetail.tsx: When we click on a player circle, one modal is displayed with the detail info about the player.
+   -stats: Component used for the statistics table.
+    -_GeneraTable: Table used for the stats.
+    -_TableRow: Row designed especially in this table project.
+    -_TableHeader: Header used for this table project.
+    -Stats: Componentm that wraps the table.
+   -Sidebar: Component that contains the sidebar of the app. Contains the behaivour on different windows sizes.
+-Services: Contains one request.ts that exports the axios request for the backend.
+-Store: For this project I used Redux for state management. This folder contains all the data about redux.
+  -Actions: Folder with all the actions in the project
+  -Reducers: Folder with the reducers in the project.
+  -index.ts: Contains the store creation and exportation.
+ -App.tsx - Contains the skeleton on the app. Wraps the sidebar, header and the router. Also is provided by the store and the theme.
+ -App.theme.tsx - Contains the theme of the application (Developed with material-ui)
+ 
+### TOOLS
+Here's the tools that I used for the project:
+| Dependency      | Use in the project              |
+| -------------   | -------------                   |
+| React-Redux     | Used for state management. Combined with react hooks (with useSelector and useDispatch)                |
+| React Hooks     | Used instead class components for the state application. I used the useEffect and useState hook.       |
+| Material-ui     | Used for the App UI. For theme creation and responsive design.                                         |
+| Typescript      | Static type validation. I prefer it over propTypes because Typescript is in compilation time.          |
+| moment          | Dates management in the project.                                                                       |
+| redux-thunk     | Redux tool for manage async actions in redux.                                                          | 
+| react-router-dom| Manage routes in react app. (Used with hooks useHistory and useLocation).                              |
+| axios           | Manage HTTP requests.                                                                                  | 
+  
